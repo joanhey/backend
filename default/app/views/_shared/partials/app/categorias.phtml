@@ -1,0 +1,8 @@
+<?php if ($productos =  (new Categoria)->getAll()) {?>
+<div class="well well-sm">
+<h5>Productos</h5>
+<?php foreach($productos as $cat): ?>
+    <?= Html::link('ver/categoria/' . $cat->slug, $cat->nombre);?><br/>
+<?php endforeach; ?>
+ </div>
+<?php } ?>

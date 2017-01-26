@@ -1,0 +1,50 @@
+<?php
+$texto = new Texto();
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Acceso al sistema</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="<?= PUBLIC_PATH; ?>css/font-lato.css" rel="stylesheet">
+        <link href="<?= PUBLIC_PATH; ?>css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="<?= PUBLIC_PATH ?>css/font.css">
+        <link rel="stylesheet" href="<?= PUBLIC_PATH ?>css/app.css">
+
+        <!-- Custom styles for this template -->
+        <link href="<?= PUBLIC_PATH; ?>css/signin.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php View::content(); ?>
+        <div class="container">
+
+            <form class="form-signin" method="post" action="<?= PUBLIC_PATH ?>sesion/login">
+                <h2 class="form-signin-heading">Bienvenido/a</h2>
+                <label for="usuario">Usuario</label>
+                <input type="text" id="login" name="login" class="form-control" placeholder="Nombre de usuario" required autofocus>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <button class="btn btn-lg btn-success btn-block" type="submit">Entrar</button>
+            </form>
+
+        </div> <!-- /container -->
+        <!-- footer -->
+        <footer id="footer">
+            <div class="text-center padder clearfix">
+                <p style="color:white;margin-top: 10px;">
+                    <small>&copy; <?= $texto->getBySlug('titulo') ?> - <?= $texto->getBySlug('slogan') ?></small><br>
+                </p>
+            </div>
+        </footer>
+        <script type="text/javascript" src="<?= PUBLIC_PATH; ?>javascript/jquery.min.js"></script>
+        <script src="<?= PUBLIC_PATH ?>javascript/app.js"></script>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+<?php View::content(); ?>
+<h2>Estado del Sitio</h2>
+
+<!-- $field, $data, $attrs = NULL, $value = NULL -->
+
+<?= Form::open(); ?>
+<strong>Estado del sitio público</strong><br/>
+<?= Form::select('offline', array('ON' => 'Sitio publico no disponible', 'OFF' => 'Sitio público disponible'), null, $item->valor); ?>
+<?= Form::submit('Actualizar', 'class="btn btn-sucess"'); ?>                                                                
+
+<?= Form::close(); ?>

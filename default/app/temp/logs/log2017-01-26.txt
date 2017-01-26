@@ -1,0 +1,50 @@
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] Probando ACL
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] Usuario: 1
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] Controller: dashboard
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] Action: index
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] DESCRIBE `perfil_recurso`
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] select recurso.controlador, recurso.accion
+                from perfil_recurso inner join recurso 
+                on recurso.id = perfil_recurso.recurso_id
+                where perfil_recurso.perfil_id in (
+                select perfil_id from perfil_usuario where usuario_id = 1)
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] Permiso: Si
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] DESCRIBE `menu`
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id is null ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id = 1 ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id = 2 ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id = 25 ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] SELECT id,slug,texto,created_at,updated_in FROM texto WHERE slug = 'titulo' LIMIT 1
+[Thu, 26 Jan 17 16:20:42 +0000][DEBUG] SELECT id,slug,texto,created_at,updated_in FROM texto WHERE slug = 'slogan' LIMIT 1
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] Probando ACL
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] Usuario: 1
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] Controller: menu
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] Action: index
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] DESCRIBE `perfil_recurso`
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] select recurso.controlador, recurso.accion
+                from perfil_recurso inner join recurso 
+                on recurso.id = perfil_recurso.recurso_id
+                where perfil_recurso.perfil_id in (
+                select perfil_id from perfil_usuario where usuario_id = 1)
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] Permiso: Si
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] DESCRIBE `menu`
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT COUNT(*) FROM (SELECT m.id,m.nombre,m.icono,
+				m.url, (select nombre from menu where id = m.menu_id) as menu_id, 
+				concat(recurso.controlador, '.', recurso.accion) as recurso_id, 
+				m.creado_at, m.actualizado_in 
+				FROM menu m LEFT OUTER JOIN recurso 
+				ON m.recurso_id = recurso.id 
+				ORDER BY m.id) AS t
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT m.id,m.nombre,m.icono,
+				m.url, (select nombre from menu where id = m.menu_id) as menu_id, 
+				concat(recurso.controlador, '.', recurso.accion) as recurso_id, 
+				m.creado_at, m.actualizado_in 
+				FROM menu m LEFT OUTER JOIN recurso 
+				ON m.recurso_id = recurso.id 
+				ORDER BY m.id LIMIT 10 OFFSET 0
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id is null ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id = 1 ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id = 2 ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT id,nombre,icono,url,orden,menu_id,recurso_id,creado_at,actualizado_in,disposicion FROM menu WHERE menu_id = 25 ORDER BY orden, nombre
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT id,slug,texto,created_at,updated_in FROM texto WHERE slug = 'titulo' LIMIT 1
+[Thu, 26 Jan 17 16:20:50 +0000][DEBUG] SELECT id,slug,texto,created_at,updated_in FROM texto WHERE slug = 'slogan' LIMIT 1

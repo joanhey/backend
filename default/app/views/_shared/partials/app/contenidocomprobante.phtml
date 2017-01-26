@@ -1,0 +1,155 @@
+
+<table class="contenido-comprobante" >
+    <tr>
+        <td>
+            
+    <?php 
+    $textos = new Texto(); 
+    $code = "OF" . $orden->oficina_origen_id;
+    $code2 = "";
+    for ($i = 1; $i <= 32; $i++) {
+        $code2 .= "0";
+    }
+    $code2 .= $orden->id;
+    $code2 .= rand(0, 9);
+    
+    $code2 = substr($code2, -32);
+    $code2 = substr($code2, -32 + strlen($code));
+    $code2 = $code . $code2;
+    
+    ?>
+    <div align="center">
+        <?= Html::img('logo2.jpg'); ?>
+        <br/>
+        <strong><?= $textos->getBySlug('titulo')?></strong>
+        <small><?= $textos->getBySlug('slogan')?></small>
+    </div>
+
+    <div align="center">
+        <strong>Orden de Flete <?= $orden->id ;?></strong><br/>
+        <small><?= $code2; ?></small><br/>
+        <strong>[INFORMACION GENERAL]</strong>
+    </div>
+    
+    <table>
+        <tr>
+            <td>Fecha Recepción:</td>
+            <td><?= date('d-m-Y', strtotime($orden->fecha_recepcion)); ?></td>
+        </tr>
+        <tr>
+            <td>Hora:</td>
+            <td><?= $orden->hora; ?></td>
+        </tr>
+        <tr>
+            <td>Tipo Pago:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Tipo Entrega:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Tipo Servicio:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Fecha Entrega:</td>
+            <td><?= ""; ?></td>
+        </tr>
+    </table>
+    
+    <div align="center">
+        <strong>[DATOS ORIGEN]</strong>
+    </div>
+    <table>
+        <tr>
+            <td>Ciudad Origen:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Agencia Origen:</td>
+            <td><?= ""; ?></td>
+        </tr>
+    </table>
+    
+    <div align="center">
+        <strong>[DATOS REMITENTE]</strong>
+    </div>
+    <table>
+        <tr>
+            <td>Nombre:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Rut:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Domicilio:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Comuna:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Fono:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><?= ""; ?></td>
+        </tr>
+    </table>
+    
+    <div align="center">
+        <strong>[DATOS DESTINO]</strong>
+    </div>
+    <table>
+        <tr>
+            <td>Ciudad Destino:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Agencia Destino:</td>
+            <td><?= ""; ?></td>
+        </tr>
+    </table>
+    
+    <div align="center">
+        <strong>[DATOS DESTINATARIO]</strong>
+    </div>
+    <table>
+        <tr>
+            <td>Nombre:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Rut:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Domicilio:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Comuna:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Fono:</td>
+            <td><?= ""; ?></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><?= ""; ?></td>
+        </tr>
+    </table>
+    
+    <div align="center">
+        <strong>[ENCARGO]</strong>
+    </div>
+    
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,34 @@
+<?php View::content(); ?>
+<?= Html::linkAction('agregar', '<i class="fa fa-plus"></i> AGREGAR', 'class="btn btn-success pull-right"'); ?>
+
+<h2>Listado de categorías</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCION</th>
+            <th>URL AMIGABLE</th>
+            <th>ORDEN</th>
+            <th>ACTIVA</th>
+            <th>VISIBLE</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($categorias as $categoria): ?>
+            <tr>
+                <td><?= $categoria->id; ?></td>
+                <td><?= $categoria->nombre; ?></td>
+                <td><?= $categoria->descripcion; ?></td>
+                <td><?= $categoria->slug; ?></td>
+                <td><?= $categoria->orden; ?></td>
+                <td><?= $categoria->activa == 1 ? "SI" : "NO"; ?></td>
+                <td><?= $categoria->visible == 1 ? "SI" : "NO"; ?></td>
+                <td><?= Html::linkAction('editar/' . $categoria->id, '<i class="fa fa-pencil"></i>', 'class="btn btn-info" title="Editar"'); ?>
+                    <?= Html::linkAction('borrar/' . $categoria->id, '<i class="fa fa-trash"></i>', 'class="btn btn-danger" title="Eliminar"'); ?></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+
+</table>

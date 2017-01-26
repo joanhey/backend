@@ -1,0 +1,44 @@
+<?php
+$texto = new Texto();
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Recurso no autorizado</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="<?= PUBLIC_PATH; ?>css/font-lato.css" rel="stylesheet">
+        <link href="<?= PUBLIC_PATH; ?>css/bootstrap.yeti.min.css" rel="stylesheet">
+        <link href="<?= PUBLIC_PATH; ?>css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="<?= PUBLIC_PATH ?>css/font.css">
+
+        <!-- Custom styles for this template -->
+        <link href="<?= PUBLIC_PATH; ?>css/signin.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <?php View::content(); ?>
+        <div class="container">
+
+            <h3><span class="fa fa-warning"></span> Lo sentimos, pero usted no tiene acceso a este contenido.</h3>
+            <?= Html::link('dashboard/', 'Volver'); ?>
+
+        </div> <!-- /container -->
+        <!-- footer -->
+        <footer id="footer">
+            <div class="text-center padder clearfix">
+                <p style="color:white;margin-top: 10px;">
+                    <small>&copy; <?= $texto->getBySlug('titulo') ?> - <?= $texto->getBySlug('slogan') ?></small><br>
+                </p>
+            </div>
+        </footer>
+        <script src="<?= PUBLIC_PATH ?>javascript/jquery-ui-1.10.3.custom.min.js"></script>
+        <script src="<?= PUBLIC_PATH ?>javascript/app.js"></script>
+    </body>
+</html>

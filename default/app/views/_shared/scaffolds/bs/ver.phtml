@@ -1,0 +1,22 @@
+
+<?php View::content() ?>
+<?php if ($data) : ?>
+    <?php foreach ($data->fields as $field) : ?>
+        <p><strong><?= $data->alias[$field] ?> :</strong>  <?= h($data->$field) ?></p>
+    <?php endforeach ?>
+
+    <div class="actions">
+        <a href="../" class="btn btn-default">Listado</a>
+        <a href="../crear/" class="btn btn-primary">Crear registro</a>
+        <a href="../editar/<?= $data->id ?>" class="btn btn-warning">Editar</a>
+        <a class="del btn btn-danger" title="¿Seguro que quiere borrar?" href="../borrar/<?= $data->id ?>" onclick="return confirm('¿Está seguro?');">Borrar</a>
+    </div>
+<?php else : ?>
+    <?php header("HTTP/1.0 404 Not Found") ?>
+    <h4>No existe</h4>
+    <div class="actions">
+        <a href="../">Listado</a>
+        <a href="../crear/">Crear registro</a>
+    </div>
+<?php endif ?>
+</div>

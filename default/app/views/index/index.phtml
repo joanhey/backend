@@ -1,0 +1,17 @@
+<h4 class="page-header">Bienvenido</h4>
+
+<?php View::content(); ?>
+<?php foreach ($items as $item): ?>
+	<article class="well well-lg">
+	    <h3 class="text-danger"><?= h($item->nombre); ?></h3>
+	    <?php if ($item->categoria_id == 7) { ?>
+	    <p class="text-danger">Publicado el <?= date('d-M-Y', strtotime($item->created_at)); ?></p>
+	    <?php } ?>
+	     <img class="img-thumbnail pull-right"
+	                     style="width:300px; padding:10px;"
+	                     src="<?= PUBLIC_PATH; ?>img/upload/<?= $item->img_portada; ?>" />
+	    <hr/>
+	   
+	    <?= $item->cuerpo; ?>
+	</article>
+<?php endforeach; ?>

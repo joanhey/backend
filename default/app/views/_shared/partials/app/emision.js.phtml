@@ -1,0 +1,209 @@
+<script type="text/javascript">
+    var zonas = <?= json_encode((new Zona)->getZonas()) ?>;
+    var tipos = <?= json_encode((new Tipo)->getTipos()) ?>;
+    var subtipos = <?= json_encode((new ValoracionZona)->getSubTipos()) ?>;
+    var tarifas = <?= json_encode((new Tarifa)->getListaTarifas()) ?>;
+    var clasificacion = <?= json_encode((new ValoracionZona)->getClasificaciones()); ?>;
+    var mediospago =  <?= json_encode((new MedioPago)->getMedioPagos()); ?>;
+
+    var items = []; //lista de items de la orden  de transporte
+
+    function cargarLista(contenidoJson)
+    {
+        items = JSON.parse(contenidoJson);
+    }
+
+    function crearFormItems()
+    {
+        var result = "";
+        $("#extraItems").html("");
+        items.map(function(elem) {
+            if (elem.eliminado === 0) {
+                result += "<input type='hidden' name='orden_detalle[" + elem.linea + "][tipo_id]' value='" + elem.tipo_id + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][tipo_nombre]' value='" + elem.tipo_nombre + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][subtipo]' value='" + elem.subtipo + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][cantidad]' value='" + elem.cantidad + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][peso_volumen]' value='" + elem.peso_volumen + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][descripcion]' value='" + elem.descripcion + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][peso]' value='" + elem.peso + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][alto]' value='" + elem.alto + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][ancho]' value='" + elem.ancho + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][largo]' value='" + elem.largo + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][volumen]' value='" + elem.volumen + "' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][eliminado]' value='0' />" +
+                        "<input type='hidden' name='orden_detalle[" + elem.linea + "][total]' value='" + elem.total + "' />";
+            }
+        })
+        $("#extraItems").html(result);
+    }
+
+    function pintarLista()
+    {
+        var result = "";
+        var linea = 1;
+        var total = 0;
+
+        console.log("*** pintar ***");
+        console.log(items);
+
+        items.map(function(elem) {
+            if (parseInt(elem.eliminado) === 0) {
+                total += parseInt(elem.total);
+                result += "<tr>" +
+                        "<td>" + linea + "</td>" +
+                        "<td>" + elem.tipo_nombre + "</td>" +
+                        "<td>" + elem.subtipo + "</td>" +
+                        "<td>" + elem.cantidad + "</td>" +
+                        "<td>" + elem.peso + "</td>" +
+                        "<td>" + (!isNaN(elem.volumen) ? elem.volumen : "") + "</td>" +
+                        "<td>" + elem.descripcion + "</td>" +
+                        "<td align='right'>" + elem.total + "</td>" +
+                        "<td><a href='#' data-linea='" + linea + "' class='btn btn-sm btn-danger btn-remove-item' title='Quitar item'>" +
+                        "<i class='fa fa-trash'></i></a></td>" +
+                        "</tr>";
+                linea += 1;
+            }
+        });
+        if (total > 0) {
+            result += "<tr>" +
+                    "<td colspan='7' align='right'><strong>TOTAL</strong></td>" +
+                    "<td align='right'>" + total + "</td>" +
+                    "<td>&nbsp;</td>" +
+                    "</tr>";
+            $("#orden_transporte_total_final").val(total);
+        }
+        console.log(result);
+        $("#tblItems tbody").html(result);
+    }
+
+    function agregarItem(item)
+    {
+        console.log(item);
+        item.linea = items.length + 1;
+        items.push(item);
+    }
+
+    function eliminarItem(item)
+    {
+        console.log(item);
+        var tmp = []
+        var linea = 1;
+        if (item !== 0) {
+            items.map(function(elem) {
+                if (parseInt(linea) === parseInt(item)) {
+                    elem.eliminado = 1;
+                }
+                tmp.push(elem);
+                linea += 1;
+            })
+        }
+        items = tmp;
+    }
+
+    //llenar combo de zonas
+    function llenarComboZonas(comboid)
+    {
+        $(comboid).html("");
+        $(comboid).append($('<option>', {
+            value: "",
+            text: "Seleccione"
+        }));
+        zonas.map(function(item) {
+            $(comboid).append($('<option>', {
+                value: item.comuna_id,
+                text: item.nombre
+            }));
+        });
+        $(comboid).val("");
+    }
+
+    function identificarZonaPago()
+    {
+        var zonaPago = 0;
+        var zOrigen = 0;
+        var zDestino = 0;
+
+        var comOrigen = $("#orden_transporte_zona_origen_id").val();
+        var comDestino = $("#orden_transporte_zona_destino_id").val();
+
+        zonas.map(function(item) {
+            if (item.comuna_id === comOrigen) {
+                zOrigen = item.id;
+            }
+            if (item.comuna_id === comDestino) {
+                zDestino = item.id;
+            }
+        });
+
+        tarifas.map(function(elem) {
+            if (zOrigen === elem.zona_origen && zDestino === elem.zona_destino) {
+                zonaPago = elem.zona_pago;
+            }
+        });
+
+        if (zonaPago !== 0) {
+            $("#orden_transporte_zona_pago_id").val(zonaPago);
+            console.log(zonaPago);
+        }
+    }
+
+    function llenaClasificacion(tipo, destElement)
+    {
+        var destElement = destElement || "#clasif";
+        $(destElement).html("");
+
+        $(destElement).append($('<option>', {
+            value: "",
+            text: "Subtipo de Carga"
+        }));
+        subtipos.map(function(item) {
+            if (item.id === tipo) {
+                $(destElement).append($('<option>', {
+                    value: item.estatico,
+                    text: item.estatico
+                }));
+            }
+
+        });
+        $(destElement).val("");
+    }
+
+    function esTipoEstatico(tipo)
+    {
+        var result = 0;
+
+        tipos.map(function(item) {
+            if (item.id === tipo) {
+                result = item.estatico;
+            }
+        });
+        console.log(result);
+        return result;
+    }
+
+
+    /**** de document ****/
+
+
+    $(document).ready(function() {
+        llenarComboZonas('#orden_transporte_zona_origen_id');
+        llenarComboZonas('#orden_transporte_zona_destino_id');
+    });
+
+    $(document).on('change', '.combozona', function() {
+        identificarZonaPago();
+    })
+
+    $(document).on('click', '.btn-remove-item', function(evt) {
+        evt.preventDefault();
+        var texto = "Desea eliminar este elemento?";
+        if ($(this).attr('data-texto') !== undefined) {
+            texto = $(this).data("texto");
+        }
+        if (confirm(texto)) {
+            eliminarItem($(this).data("linea"));
+            pintarLista();
+        }
+    })
+
+</script>

@@ -1,0 +1,6 @@
+<div class="well">
+    <?= Form::openMultipart('articulos/subirimagen') ?>
+    <?= Form::file('foto') ?>
+    <?= Form::submit('Subir imagen', 'class="btn btn-success" id="submitButton"') ?>
+    <?= Form::close() ?>
+</div>

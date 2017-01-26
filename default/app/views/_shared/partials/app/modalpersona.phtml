@@ -1,0 +1,76 @@
+<?php
+$personas = (new Cliente)->getAll();
+?>
+<style type="text/css">
+    table th, td {
+        font-size: 0.8em;
+    }
+    .btn-select {
+        font-size: 0.8em; 
+    }
+</style>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-persona" data-to="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Buscar</h4>
+            </div>
+            <div class="modal-body" style="height: 400px;overflow:scroll;">
+                <table class="table table-condensed table-striped table-hover table-bordered" id="tblPersonas">
+                    <thead>
+                        <tr>
+                            <th>RUT</th>
+                            <th>NOMBRE / RAZON SOCIAL</th>
+                            <th>CONDICION DE PAGO</th>
+                            <th style="width:10px">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($personas as $persona): ?>
+                            <tr>
+                                <td><?= $persona->rut; ?></td>
+                                <td><?= $persona->nombre; ?></td>
+                                <td><?= $persona->condicion_pago; ?></td>
+                                <td align="center"  style="width:10px">
+                                    <button class="btn btn-sm btn-info btn-select" data-rut="<?= $persona->rut ?>" data-dismiss="modal"><i class="fa fa-check"></i> Seleccionar</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#tblPersonas").dataTable({
+            "bPaginate": false,
+            "bSort": true,
+            "oLanguage":
+                    {
+                        "sSearch": "Buscar:",
+                        "sInfoFiltered": " - filtrando en _MAX_ filas",
+                        "sEmptyTable": "No hay datos que mostrar en la tabla",
+                        "sLengthMenu": "Mostrar _MENU_ filas",
+                        "sLoadingRecords": "Espere un momento - cargando...",
+                        "sZeroRecords": "Sin filas que mostrar",
+                        "sInfo": "_TOTAL_ filas. Mostrando (_START_ a _END_)",
+                    }
+        });
+    });
+
+    $('#modal-persona').on('shown.bs.modal', function() {
+        $('div.dataTables_filter input').focus();
+    })
+    $(document).on("click", ".btn-select", function(evt) {
+        evt.preventDefault();
+        var dest = $("#modal-persona").data("to");
+        $("#" + dest).val($(this).data("rut"));
+        buscarRut(dest);
+    });
+</script>

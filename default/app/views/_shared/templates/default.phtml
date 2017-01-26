@@ -1,0 +1,100 @@
+<?php
+$title = isset($title) ? $title : 'Sin titulo';
+$texto = new Texto();
+?>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title><?= $texto->getBySlug('titulo'); ?> - <?= $texto->getBySlug('slogan'); ?></title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="<?= PUBLIC_PATH; ?>css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<?= PUBLIC_PATH; ?>css/shop-homepage.css" rel="stylesheet">
+    <link href="<?= PUBLIC_PATH; ?>css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="<?= PUBLIC_PATH; ?>javascript/jquery.min.js"></script>
+    <script type="text/javascript" src="<?= PUBLIC_PATH; ?>javascript/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<?= PUBLIC_PATH ?>css/app.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <style type="text/css">
+        .bignavbg {
+            background: url(<?= PUBLIC_PATH ?>img/bg/header_right.jpg) top right no-repeat;            
+        }
+        .bignavbgf {
+            background: url(<?= PUBLIC_PATH ?>img/bg/header.jpg) top left repeat-x fixed;            
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top bignav bignavbgf" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="<?= PUBLIC_PATH ?>img/bg/header_left.jpg" alt="<?= $texto->getBySlug('titulo'); ?>" />
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse collapse bignavbg" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+                <?= View::partial('app/menu'); ?>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+        <?= View::content() ?>        
+    </div>
+    <!-- /.container -->
+
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <small><?= date('Y'); ?> <?= $texto->getBySlug('titulo') ?> -  <?= $texto->getBySlug('slogan') ?></small>            
+                    <?php if (PRODUCTION == false) { ?>
+                        <br/>
+                        <small>Usted está en: <?= $controller_name . '/' . $action_name; ?></small>
+                    <?php } ?>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+    <script src="<?= PUBLIC_PATH ?>javascript/app.js"></script>
+    
+
+</body>
+
+</html>
+

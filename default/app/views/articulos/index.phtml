@@ -1,0 +1,49 @@
+<?= Html::linkAction('agregar', '<i class="fa fa-plus"></i> AGREGAR', 'class="btn btn-success pull-right"'); ?>
+<h2>Listado de Artículos</h2>
+
+<?= Form::open(null, 'post', 'id="form1"'); ?>
+<div class="col-sm-7 form-inline well well-sm">
+    <strong>Filtro por Categoría:</strong>
+    <?= Form::dbSelect('categoria', 'nombre', array('categoria', 'find'), 'Todos', 'class="form-control"', $categoria); ?>
+</div>
+<?= Form::close(); ?>
+<table class='table table-striped'>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>CATEGORIA</th>
+            <th>PRECIO</th>
+            <th>DESCRIPCION BREVE</th>
+            <th>URL AMIGABLE</th>
+            <th>ACTIVO</th>
+            <th>OPCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($items as $fila) { ?>
+            <tr>
+                <td><?= $fila->id; ?></td>
+                <td><?= $fila->nombre; ?></td>
+                <td><span class="text-success">
+                        <?= $fila->categoria_id ? $fila->getCategoria()->nombre : ""; ?></span></td>
+                <td><?= $fila->precio; ?></td>
+                <td><?= $fila->breve_descripcion; ?></td>
+                <td><?= $fila->slug; ?></td>
+                <td><?= $fila->activo == "1" ? "SI" : "NO"; ?></td>
+                <td width="130px">
+                    <div class="btn-group">
+                        <?= Html::linkAction('imagenes/' . $fila->id, '<i class="fa fa-photo"></i>', 'class="btn btn-warning" title="Imágenes"'); ?> 
+                        <?= Html::linkAction('editar/' . $fila->id, '<i class="fa fa-pencil"></i>', 'class="btn btn-info" title="Editar"'); ?> 
+                        <?= Html::linkAction('eliminar/' . $fila->id, '<i class="fa fa-trash"></i>', 'class="btn btn-danger" title="Eliminar"'); ?>
+                    </div>
+                </td>
+            </tr>
+        <?php } //foreach ?>
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).on('change', '#categoria', function () {
+        $("#form1").submit();
+    })
+</script>

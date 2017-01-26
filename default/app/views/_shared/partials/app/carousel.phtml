@@ -1,0 +1,33 @@
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <?php 
+    $first = "active"; 
+    foreach($destacados as $item): ?>
+    <div class="item <?= $first;?>">
+      <img src="<?= PUBLIC_PATH . 'img/upload/' . $item->img_portada; ?>" 
+        alt="<?= $item->nombre;?>" style="height: 450px; width: 100%;">
+        <div class="carousel-caption"
+    	    style="background-color:dimgrey;
+        		opacity: 0.8;filter: alpha(opacity=80);
+        		padding:7px;
+        		-webkit-border-radius: 5px;-moz-border-radius: 5px;
+        		border-radius: 5px">
+        <h4><?= $item->nombre; ?></h4>
+        </div>
+    </div>
+    <?php
+    $first = ""; 
+    endforeach; ?>    
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Anterior</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Siguiente</span>
+  </a>
+</div>

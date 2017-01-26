@@ -1,0 +1,25 @@
+<?php if (MyAuth::isAuth()) { ?>
+
+<ul class="nav navbar-nav navbar-right">
+    <?php
+    $menu = new Menu();
+    foreach ($menu->find("conditions: menu_id is null", "order: orden, nombre") as $item):
+        $child = $menu->find("conditions: menu_id = " . $item->id, "order: orden, nombre");
+
+        if (count($child) > 0) {
+            View::partial('app/menuchild', false, array('name' => $item->nombre, 'items' => $child));
+        } else {
+            View::partial('app/menuitem', false, array('item' => $item));
+        }
+
+    endforeach;
+    ?>
+</ul>
+
+<?php } else { ?>
+<ul class="nav navbar-nav navbar-right">
+    <li>
+        <?= Html::link('dashboard/', 'Entrar'); ?>
+    </li>
+</ul>
+<?php } ?>

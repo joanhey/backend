@@ -1,0 +1,22 @@
+<?= View::content(); ?>
+
+<div class="form">
+    <?php ModelForm::create($$model) ?>
+    <a href="../" class="btn btn-default">Volver al Listado</a>
+</div>
+
+<script type="text/javascript">
+    $(":text, :password").addClass("form-control");
+    $("select").addClass("form-control");
+    $("textarea").addClass("form-control");
+    $(':input[type="number"]').addClass("form-control");
+    $(':input[type="date"]').addClass("form-control");
+    /*$(':input[type="date"]').datepicker({		
+     format: 'yyyy/mm/dd',
+     startDate: '-3d'
+     });*/
+    $(':submit').addClass("btn btn-success");
+    $(".flash").addClass("alert alert-sm alert-warning");
+</script>
+</div>
+

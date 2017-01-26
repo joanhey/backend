@@ -1,0 +1,18 @@
+.flashContent {
+    position: fixed; 
+    top: 0px;
+    right: 0px; 
+    width: 100%;
+    height: 30px;
+    background-color: lightgoldenrodyellow; 
+    color: steelblue; 
+    padding: 3px 30px 3px 30px; 
+    z-index: 1200;
+    font-size: 1.1em;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.bignav {
+    min-height: 100px;    
+}

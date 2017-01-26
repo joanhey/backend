@@ -1,0 +1,42 @@
+<h3>Imágenes para <?= $item->nombre; ?></h4>
+<?php View::content(); ?>
+<?= Form::openMultipart('articulos/subirimagen') ?>
+<div class="well">
+    <?= Form::label('Seleccione una imagen', 'foto'); ?>
+    <?= Form::file('foto') ?>
+    <?= Form::hidden('id', false, $item->id) ?>
+</div>
+<?= Form::submit('Subir imagen', 'class="btn btn-success"') ?>&nbsp;
+<?= Html::linkAction('index', 'Volver', 'class="btn btn-default"'); ?>
+<?= Form::close() ?>
+
+<hr/>
+<?php
+$cuenta = 0;
+?>
+<div class="row-fluid">
+    <?php foreach ($imagenes as $imagen) { ?>
+        <div class="col-md-3">
+            <?= Html::img("upload/" . $imagen->archivo, "", 'class="img-rounded" style="width: 100%;height:200px;"'); ?>
+            <div class="text-center">
+                <?=
+                Html::linkAction('usarcomoportada/' . $imagen->id . '/' . $item->id, '<i class="fa fa-check"></i> Usar como portada', 'class="btn btn-info" title="Usar esta imagen como portada"');
+                ?>
+                <?=
+                Html::linkAction('quitarimagen/' . $imagen->id . '/' . $item->id, '<i class="fa fa-trash"></i> Quitar', 'class="btn btn-danger" title="Quitar esta imagen"');
+                ?>
+            </div>
+        </div>
+
+        <?php
+        $cuenta += 1;
+        if (($cuenta % 4) == 0) {
+            ?>
+        </div>
+        <hr/>
+        <div class="row-fluid">
+        <?php }
+        ?>
+
+    <?php } ?>
+</div>

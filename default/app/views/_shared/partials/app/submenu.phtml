@@ -1,0 +1,20 @@
+<?php
+$items = (new Menu)->find("conditions: menu_id = " . $menu->id, "order: nombre");
+$extraClass = "";
+
+if (count($items) > 0) {
+    $extraClass = 'class="dropdown-submenu"';
+}
+?>
+
+<li <?= $extraClass; ?>>
+    <a href="<?= PUBLIC_PATH; ?><?= $menu->url; ?>">
+        <i class="<?= $menu->icono; ?> fa-lg"></i>
+        <span><?= $menu->nombre; ?></span>
+    </a>
+    <?php
+    if (count($items) > 0) {
+        View::partial('app/innermenu', false, array('items' => $items));
+    }
+    ?>
+</li>

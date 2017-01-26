@@ -1,0 +1,14 @@
+<?php
+$child = (new Menu)->getChild($items[0]->id);
+if (count($child) > 0) {
+    View::partial('app/innermenu', false, array('items' => $child));
+} else {
+    ?>
+    <ul class="dropdown-menu">
+        <?php foreach ($items as $item): ?>
+            <li>
+                <a href="<?= PUBLIC_PATH; ?><?= $item->url; ?>"><?= $item->nombre; ?></a>
+            </li>                                                                
+        <?php endforeach; ?> 
+    </ul>
+<?php } ?>

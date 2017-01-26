@@ -1,0 +1,14 @@
+<h3>Eliminar Item#<?= $item->id; ?></h3>
+<?= Form::open(); ?>
+<?= Form::label('NOMBRE', 'item.nombre'); ?>
+<?= Form::text('item.nombre'); ?>
+<?= Form::label('CATEGORIA', 'item.categoria_id'); ?>
+<?= Form::dbSelect('item.categoria_id', 'nombre', array('categoria', 'find')); ?>
+<?= Form::label('CUERPO', 'item.cuerpo'); ?>
+<?= Form::text('item.cuerpo'); ?>
+<?= Form::label('ACTIVA', 'item.activa'); ?>
+<?= Form::text('item.activa'); ?>
+<?= Form::hidden('item.id'); ?>
+<br />
+<?= Form::submit('Confirmar eliminación', 'class="btn btn-danger"'); ?> <?= Html::linkAction('index', 'Volver', 'class="btn btn-default"'); ?> 
+<?= Form::close(); ?>

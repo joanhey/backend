@@ -1,0 +1,44 @@
+<?= View::content() ?>
+<div class="actions  pull-right" style="margin-top: 10px">
+    <?= Html::linkAction("crear/", '<i class="fa fa-plus"></i> Agregar', 'class="btn btn-success"') ?>
+</div>
+<h4 class="page-header">Lista de <?= ucwords("$model") ?></h4>
+
+<div class="row-fluid">
+
+    <?php if ($data->items) : ?>
+        <table class="table table-condensed table-bordered table-striped table-hover">
+            <thead><tr>
+                    <?php foreach (current($data->items)->fields as $field) : ?>
+                        <th><?= (current($data->items)->get_alias($field)) ?></th>
+                    <?php endforeach ?>
+                    <th width="160px">Acciones</th>
+                </tr></thead>
+            <tbody>
+                <?php foreach ($data->items as $item) : ?>
+                    <tr>
+                        <?php foreach ($item->fields as $field) : ?>
+                            <td><?= h($item->$field) ?></td>
+                        <?php endforeach ?>
+                        <td align="center">
+                            <div class="btn-group">
+                                <?= Html::linkAction("ver/$item->id", '<i class="fa fa-eye"></i>', 'class="btn btn-sm btn-default" title="Ver"') ?>
+                                <?= Html::linkAction("editar/$item->id", '<i class="fa fa-pencil"></i>', 'class="btn btn-sm btn-info" title="Editar"') ?> 
+                                <?= Html::linkAction("borrar/$item->id", '<i class="fa fa-trash-o"></i>', 'onclick="return confirm(\'¿Está seguro?\')" class="btn btn-sm btn-danger" title="Eliminar"') ?>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+        <?php View::partial('paginators/digg', false, array('page' => $data, 'url' => Router::get('controller_path') . '/index')); ?>
+
+    <?php else : // Si no hay items?>
+        <p class="label label-info">No se han creado datos para <?= ucwords("$model") ?></p>
+    <?php endif ?>
+
+</div>
+<script type="text/javascript">
+    $(".paginator strong").addClass("btn btn-inverse btn-sm")
+    $(".paginator a").addClass("btn btn-primary btn-sm")
+</script>

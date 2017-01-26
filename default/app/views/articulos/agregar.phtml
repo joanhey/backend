@@ -1,0 +1,81 @@
+<?php View::content(); ?>
+<?= Form::open(); ?>
+<div class="btn-group" style="position: fixed; right: 10px; top: 120px; z-index: 999; padding:3px; background-color: gainsboro;">
+    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Agregar</button> 
+    <?= Html::linkAction('index', '<i class="fa fa-reply"></i> Volver', 'class="btn btn-default"'); ?>         
+</div>
+
+<h3>Agregar Item</h3>
+
+<div class="row">
+    <div class="col-md-8">
+        <?= Form::label('NOMBRE', 'item.nombre'); ?>
+    </div>
+    <div class="col-md-4">
+        <?= Form::label('CATEGORIA', 'item.categoria_id'); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <?= Form::text('item.nombre', 'class="form-control input-sm"'); ?>
+    </div>
+    <div class="col-md-4">
+        <?= Form::dbSelect('item.categoria_id', 'nombre', array('categoria', 'find'), "Seleccione", 'class="form-control input-sm"'); ?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <?= Form::label('DESTACADO', 'item.destacado'); ?>
+    </div>
+    <div class="col-md-4">
+        <?= Form::label('IMAGEN PORTADA', 'item.img_portada'); ?>
+    </div>
+    <div class="col-md-3">        
+    </div>
+    <div class="col-md-3">    
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <?= Form::select('item.destacado', array('2' => 'No', '1' => 'Sí'), 'class="form-control input-sm"'); ?>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <div class="input-group">                
+                <?= Form::text('item.img_portada', 'class="form-control input-sm"'); ?>    
+                <div class="input-group-addon"><a href="#" data-toggle="modal" data-target="#portadaModal"><i class="fa fa-photo"></i></a></div>
+            </div>            
+        </div>    
+    </div>
+    <div class="col-md-3">
+        <?= Form::hidden('item.con_precio', 'value="2"'); ?>
+    </div>
+    <div class="col-md-3">
+        <?= Form::hidden('item.precio', 'value="0"'); ?>
+    </div>
+</div>
+<?= Form::label('DESCRIPCION BREVE', 'item.breve_descripcion'); ?>
+<?= Form::textarea('item.breve_descripcion', 'class="form-control input-sm"'); ?>
+
+<?= Form::label('CONTENIDO DEL ARTICULO', 'item.cuerpo'); ?>
+<?= Form::textarea('item.cuerpo', 'class="form-control input-sm" rows="10"'); ?>
+
+<?= Form::close(); ?>
+
+<?php //echo View::partial('app/gallery', false); ?>
+<?php //echo View::partial('app/imagenportada', false); ?>
+
+<?= Tag::js('tinymce/tinymce.min'); ?>
+<script type="text/javascript">
+// Tiny MCE
+    tinymce.init({
+        selector: "#item_cuerpo",
+        language: "es",
+        plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    });
+</script>

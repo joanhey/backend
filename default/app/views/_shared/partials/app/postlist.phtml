@@ -1,0 +1,8 @@
+<?php if ($items =  (new Item)->find("conditions: categoria_id = 7", "limit: 5", "order: created_at desc")) {?>
+<div class="well well-sm">
+<h5>Entradas recientes del blog</h5>
+<?php foreach($items as $item): ?>
+    <?= Html::link('ver/item/' . $item->slug, $item->nombre);?><br/>
+<?php endforeach; ?>
+ </div>
+<?php } ?>
