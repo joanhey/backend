@@ -1,6 +1,5 @@
 <?php
 
-Load::models('categoria', 'menu');
 
 class CategoriasController extends AdminController {
 

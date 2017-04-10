@@ -1,6 +1,5 @@
 <?php
 
-Load::models('item', 'menu', 'imagen', 'categoria');
 
 class ArticulosController extends AdminController {
 
