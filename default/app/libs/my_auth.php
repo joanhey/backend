@@ -10,10 +10,9 @@ class MyAuth {
             Session::set('id', $usuario->id);
             Session::set('email', $usuario->email);
             return true;
-        } else {
-            Logger::debug('no concuerda clave');
-            return false;
         }
+        Logger::debug('no concuerda clave');
+        return false;
     }
 
     public static function isAuth() {
@@ -21,7 +20,7 @@ class MyAuth {
     }
 
     public static function get($key) {
-        return Session::get($key) != null ? Session::get($key) : null;
+        return Session::get($key);
     }
 
     public static function destroy() {
